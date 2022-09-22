@@ -19,12 +19,21 @@ import { Header } from "../../components/Header";
 import { Pagination } from "../../components/Pagination";
 import { Sidebar } from "../../components/Sidebar";
 import Link from "next/link";
+import { useEffect } from "react";
 
 export default function UserList() {
+
+
   const isWideVersion = useBreakpointValue({
     base: false,
     lg: true,
   });
+
+  useEffect(()=> {
+    fetch('http://localhost:3000/api/users')
+    .then(response => response.json())
+    .then(data => console.log(data))
+  },[])
 
   return (
     <Box>
@@ -170,7 +179,11 @@ export default function UserList() {
               </Tr>
             </Tbody>
           </Table>
-          <Pagination />
+          <Pagination
+            totalCountOfRegisters={200}
+            currentPage={5}
+            onPageChange={() => { }}
+          />
         </Box>
       </Flex>
     </Box>
